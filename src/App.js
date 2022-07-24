@@ -2,7 +2,7 @@
 /* eslint-disable import/no-anonymous-default-export */
 import React, { useEffect, useState } from "react";
 import "./App.css";
-import tmdb from "./tmdb";
+import Tmdb from "./tmdb";
 import MovieRow from "./components/MovieRow";
 import FeatureMovie from "./components/FeatureMovie";
 
@@ -12,7 +12,7 @@ export default () => {
   useEffect(() => {
     const loadAll = async () => {
       // Get all list
-      let list = await tmdb.getHomeList();
+      let list = await Tmdb.getHomeList();
       setMovieList(list);
 
       // getting the feature
@@ -21,8 +21,8 @@ export default () => {
         Math.random() * originals[0].items.results.length - 1
       );
       let chosen = originals[0].items.results[randomChosen];
-
-      console.log(chosen);
+      let chosenInfo = await Tmdb.getMovieInfo(chosen.id, "tv");
+      setFeatureData(chosenInfo);
     };
     loadAll();
   }, []);
