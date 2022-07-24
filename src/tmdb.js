@@ -10,7 +10,7 @@ const API_BASE = "https://api.themoviedb.org/3";
     - Action
     - Comedy
     - Horror
-    - Novel
+    - Novel - romance
     - Documentary
 */
 
