@@ -5,10 +5,12 @@ import "./App.css";
 import Tmdb from "./tmdb";
 import MovieRow from "./components/MovieRow";
 import FeatureMovie from "./components/FeatureMovie";
+import Header from "./components/Header";
 
 export default () => {
   const [movieList, setMovieList] = useState([]);
   const [featureData, setFeatureData] = useState(null);
+  const [darkHeader, setdarkHeader] = useState(false);
   useEffect(() => {
     const loadAll = async () => {
       // Get all list
@@ -27,8 +29,23 @@ export default () => {
     loadAll();
   }, []);
 
+  useEffect(() => {
+    const scrollListener = () => {
+      if (window.scrollY > 10) {
+        setdarkHeader(true);
+      } else {
+        setdarkHeader(false);
+      }
+    };
+    window.addEventListener("scroll", scrollListener);
+    return () => {
+      window.removeEventListener("scroll", scrollListener);
+    };
+  }, []);
+
   return (
     <div className="page">
+      <Header dark={darkHeader} />
       {featureData && <FeatureMovie item={featureData} />}
 
       <section className="lists">
